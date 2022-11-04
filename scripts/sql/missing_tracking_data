@@ -9,5 +9,5 @@ WHERE NOT (
 	vertbreak IS NULL OR
 	inducedvertbreak IS NULL OR
 	horzbreak IS NULL
-    IS NOT NULL
+	IS NOT NULL
 )
