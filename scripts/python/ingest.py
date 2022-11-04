@@ -10,16 +10,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 def main():
+    create_tables()
     IngestData().run()
 
 class IngestData:
+    def __init__(self):
+        self.url = config['default'].url
+        self.apikey = config['default'].apikey
+        self.endpoints = config['default'].endpoints
+        self.username = config['default'].postgress_username
+        self.password = config['default'].postgres_password
+
     def run(self):
-        endpoint_list = [
-            'play_by_play',
-            'pitches',
-            'tracking'
-        ]
-        for endpoint in endpoint_list:
+        for endpoint in self.endpoints:
             response = self.load(endpoint)
             normalized_table = self.normalize(response, endpoint)
             self.write(normalized_table, endpoint)
@@ -28,7 +31,7 @@ class IngestData:
         #TODO: make verify=False not necessary
         BASE_URL = f"https://test.sdpinternal.com/api/interview/{endpoint}"
         headers = {
-            "x-api-key": "95706e3b-b140-446e-a152-9ace984d8565"
+            "x-api-key": self.apikey
         }
 
         response = requests.get(BASE_URL, headers=headers, verify=False, timeout=30).json()
@@ -44,14 +47,11 @@ class IngestData:
             logging.exception(f'Response for endpoint {endpoint} contained no payload.')
 
     def write(self, normalized_table, endpoint):
-        engine = create_engine('postgresql://postgres:bamabass@localhost:5432/dw')
+        engine = create_engine(f'postgresql://{self.username}:{self.password}@localhost:5432/dw')
         try:
             normalized_table.to_sql(f'{endpoint}', engine, schema='test', if_exists='replace')
         except:
             logging.exception(f'Writing {endpoint} data to SQL failed.')
-
-            import psycopg2
-
 
 def create_tables():
     """ create tables in the PostgreSQL database"""
