@@ -69,7 +69,8 @@ def create_tables():
             pitcherid VARCHAR(255),
             pitcherthrows VARCHAR(255),
             event_type VARCHAR(255),
-            description VARCHAR(255)
+            description VARCHAR(255),
+            PRIMARY KEY (game_pk, batterid, pitcherid, at_bat_index)
         )
         """,
         """ 
@@ -100,8 +101,8 @@ def create_tables():
             extension DECIMAL(18, 5),
             vertbreak DECIMAL(18, 5),
             inducedvertbreak DECIMAL(18, 5),
-            horzbreak DECIMAL(18, 5)
-            PRIMARY KEY
+            horzbreak DECIMAL(18, 5),
+            PRIMARY KEY (game_pk, pitcherid, batterid, pitchno)
     )
 
         """,
@@ -126,7 +127,8 @@ def create_tables():
             post_outs INT,
             post_vscore INT,
             post_hscore INT,
-            call_desc VARCHAR(255)
+            call_desc VARCHAR(255),
+            PRIMARY KEY (game_pk, batter_id, pitcher_id, pitch_number)
         )
         """
     )
