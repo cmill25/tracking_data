@@ -28,7 +28,7 @@ class IngestData:
 
     def load(self, endpoint):
         #TODO: make verify=False not necessary
-        BASE_URL = f"https://test.sdpinternal.com/api/interview/{endpoint}"
+        BASE_URL = f"{self.url} + {endpoint}"
         headers = {
             "x-api-key": self.apikey
         }
