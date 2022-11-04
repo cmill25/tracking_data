@@ -127,7 +127,7 @@ def create_tables():
             post_vscore INT,
             post_hscore INT,
             call_desc VARCHAR(255),
-            PRIMARY KEY (game_pk, batter_id, pitcher_id, pitch_number)
+            PRIMARY KEY (game_pk, batter_id, pitcher_id, at_bat_index, pitch_number)
         )
         """
     )
