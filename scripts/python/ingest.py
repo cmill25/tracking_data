@@ -50,7 +50,7 @@ class IngestData:
     def write(self, normalized_table, endpoint):
         engine = create_engine(f'postgresql://{self.username}:{self.password}@localhost:5432/dw')
         try:
-            normalized_table.to_sql(f'{endpoint}', engine, schema='test', if_exists='replace')
+            normalized_table.to_sql(f'{endpoint}', engine, schema='dbo', if_exists='replace')
         except:
             logging.exception(f'Writing {endpoint} data to SQL failed.')
 
@@ -58,7 +58,7 @@ def create_tables():
     """ create tables in the PostgreSQL database"""
     commands = (
         """
-        CREATE TABLE IF NOT EXISTS test.play_by_play (
+        CREATE TABLE IF NOT EXISTS dbo.play_by_play (
             date DATE,
             game_pk VARCHAR(255) NOT NULL,
             inning INT,
@@ -74,7 +74,7 @@ def create_tables():
         )
         """,
         """ 
-        CREATE TABLE IF NOT EXISTS test.pitch_tracking (
+        CREATE TABLE IF NOT EXISTS dbo.pitch_tracking (
             date DATE NOT NULL,
             game_pk VARCHAR(255) NOT NULL,
             pitchno INT NOT NULL,
@@ -104,10 +104,9 @@ def create_tables():
             horzbreak DECIMAL(18, 5),
             PRIMARY KEY (game_pk, pitcherid, batterid, pitchno)
     )
-
         """,
         """
-        CREATE TABLE IF NOT EXISTS test.pitches(
+        CREATE TABLE IF NOT EXISTS dbo.pitches(
             game_pk VARCHAR(255),
             at_bat_index INT,
             pitch_number INT,
@@ -134,7 +133,10 @@ def create_tables():
     )
     conn = None
     try:
-        conn = psycopg2.connect('postgresql://postgres:bamabass@localhost:5432/dw')
+        username = config['default'].postgress_username
+        password = config['default'].postgres_password
+        connection_string = f'postgresql://{username}:{password}@localhost:5432/dw
+        conn = psycopg2.connect(connection_string)
         cur = conn.cursor()
         # create table one by one
         for command in commands:
