@@ -1,0 +1,4 @@
+SELECT t1.pitch_number
+FROM table1 t1
+LEFT JOIN table2 t2 ON t2.pitchno = t1.pitch_number
+WHERE t2.pitchno IS NULL
