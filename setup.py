@@ -1,20 +1,26 @@
 from setuptools import setup, find_namespace_packages
+import os
 
-majorVer = 0
-minorVer = 1
+major_ver = 0
+minor_ver = 1
 rev = 0
-
+lib_folder = os.path.dirname(os.path.realpath(__file__))
+requirement_path = lib_folder + '/requirements.txt'
+install_requires = []
+if os.path.isfile(requirement_path):
+    with open(requirement_path) as f:
+        install_requires = f.read().splitlines()
+  
 setup(
-    name='bg_apps',
-    description="Data Engineering's Python jobs.",
-    version="{0}.{1}.{2}".format(majorVer, minorVer, rev),
+    name='api_ingestion',
+    description="Ingest from API and write to Postgres",
+    version=f"{major_ver}.{minor_ver}.{rev}",
     python_requires='>=3.7',
     packages=find_namespace_packages(),
+    install_requires = install_requires
     entry_points = {
         'scripts': [
-            'azure_billing_ingestion = apps.AzureBilling.ingest:main',
-            'sql_discovery = apps.SQLSources.discovery:main',
-            'sql_ingestion = apps.SQLSources.ingest:main'
+            'azure_billing_ingestion = scripts.python.ingest:main'
         ]
     }
 )
