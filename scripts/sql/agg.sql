@@ -18,15 +18,14 @@ group by pitcherid, pitcher;
 #join to play by play to see result
 select *
 from dbo.pitches t1
-inner join dbo.pitch_tracking t2 
+inner join dbo.tracking t2 
     on t1.game_pk = t2.game_pk
     and t1.pitcher_id = t2.pitcherid
     and t1.batter_id = t2.batterid
     and t1.pitch_number = t2.pitchno
 left join dbo.play_by_play t3 
-    on t1.game_pk = t2.game_pk
-    and t1.pitcher_id = t2.pitcherid
-    and t1.batter_id = t2.batterid
-    and t1.at_bat_index = t2.at_bat_index
+    on t1.game_pk = t3.game_pk
+    and t1.pitcher_id = t3.pitcher_id
+    and t1.batter_id = t3.batter_id
+    and t1.at_bat_index = t3.at_bat_index
 
-#join to pitches to see v/h_score
