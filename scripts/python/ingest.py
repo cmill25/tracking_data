@@ -20,6 +20,7 @@ class IngestData:
         self.endpoints = config['default'].endpoints
         self.username = config['default'].postgress_username
         self.password = config['default'].postgres_password
+        self.connection_string = f'postgresql://{self.username}:{self.password}@localhost:5432/dw
 
     def run(self):
         for endpoint in self.endpoints:
