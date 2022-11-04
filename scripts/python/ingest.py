@@ -1,8 +1,6 @@
-import os
 import requests
 import pandas as pd
 from pandas import json_normalize
-import sqlite3
 import psycopg2
 from sqlalchemy import create_engine, engine
 import logging
