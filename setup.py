@@ -12,7 +12,7 @@ if os.path.isfile(requirement_path):
         install_requires = f.read().splitlines()
   
 setup(
-    name='api_ingestion',
+    name='ingestion',
     description="Ingest from API and write to Postgres",
     version=f"{major_ver}.{minor_ver}.{rev}",
     python_requires='>=3.7',
@@ -20,7 +20,7 @@ setup(
     install_requires = install_requires
     entry_points = {
         'scripts': [
-            'azure_billing_ingestion = scripts.python.ingest:main'
+            'tracking_ingestion = scripts.python.ingest:main'
         ]
     }
 )
