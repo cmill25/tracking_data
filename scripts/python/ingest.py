@@ -73,17 +73,17 @@ def create_tables():
         """,
         """ 
         CREATE TABLE IF NOT EXISTS test.pitch_tracking (
-            date DATE,
-            game_pk VARCHAR(255),
-            pitchno INT,
+            date DATE NOT NULL,
+            game_pk VARCHAR(255) NOT NULL,
+            pitchno INT NOT NULL,
             pa_of_inning INT,
-            pitch_of_pa INT,
-            pitcher VARCHAR(255),
-            pitcherid VARCHAR(255),
+            pitch_of_pa INT ,
+            pitcher VARCHAR(255) NOT NULL,
+            pitcherid VARCHAR(255) NOT NULL,
             pitcherthrows VARCHAR(255),
             pitcherteam VARCHAR(255),
-            batter VARCHAR(255),
-            batterid INT,
+            batter VARCHAR(255) NOT NULL,
+            batterid INT NOT NULL,
             batterside VARCHAR(255),
             batterteam VARCHAR(255),
             inning INT,
@@ -100,6 +100,7 @@ def create_tables():
             vertbreak DECIMAL(18, 5),
             inducedvertbreak DECIMAL(18, 5),
             horzbreak DECIMAL(18, 5)
+            PRIMARY KEY
     )
 
         """,
