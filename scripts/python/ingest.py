@@ -18,7 +18,7 @@ class IngestData:
         self.url = config['default'].url
         self.apikey = config['default'].apikey
         self.endpoints = config['default'].endpoints
-        self.username = config['default'].postgress_username
+        self.username = config['default'].postgres_username
         self.password = config['default'].postgres_password
         self.connection_string = f'postgresql://{self.username}:{self.password}@localhost:5432/dw
 
