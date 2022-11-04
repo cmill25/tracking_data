@@ -1,10 +1,14 @@
--- Aggregrates null tracking data from tracking table.
+-- Shows what pitch numbers are missing tracking data.
 
-SELECT t1.pitchno
-FROM dbo.pitches t1
-LEFT JOIN dbo.tracking t1
-    ON t1.game_pk = t2.game_pk
-    AND t1.pitcher_id = t2.pitcherid
-    AND t1.batter_id = t2.batterid
-    AND t1.pitch_number = t2.pitchno
-WHERE t1.pitchno IS NULL
+WITH RECURSIVE CTE AS
+(
+    SELECT 1 AS Number
+    UNION ALL
+    SELECT Number + 1 FROM CTE
+    WHERE Number<=100
+)
+SELECT *
+FROM CTE
+WHERE Number NOT IN(SELECT pitchno FROM dbo.tracking)
+ORDER BY Number
+;
