@@ -1,4 +1,13 @@
-SELECT t1.pitch_number
-FROM table1 t1
-LEFT JOIN table2 t2 ON t2.pitchno = t1.pitch_number
-WHERE t2.pitchno IS NULL
+-- Aggregrates null tracking data from tracking table.
+
+SELECT * FROM dbo.tracking 
+WHERE NOT (
+	relspeed IS NULL OR 
+	relheight IS NULL OR
+	relside IS NULL OR
+	extension IS NULL OR
+	vertbreak IS NULL OR
+	inducedvertbreak IS NULL OR
+	horzbreak IS NULL
+    IS NOT NULL
+)
