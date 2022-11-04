@@ -1,13 +1,10 @@
 -- Aggregrates null tracking data from tracking table.
 
-SELECT * FROM dbo.tracking 
-WHERE NOT (
-	relspeed IS NULL OR 
-	relheight IS NULL OR
-	relside IS NULL OR
-	extension IS NULL OR
-	vertbreak IS NULL OR
-	inducedvertbreak IS NULL OR
-	horzbreak IS NULL
-	IS NOT NULL
-)
+SELECT t1.pitchno
+FROM dbo.pitches t1
+LEFT JOIN dbo.tracking t1
+    ON t1.game_pk = t2.game_pk
+    AND t1.pitcher_id = t2.pitcherid
+    AND t1.batter_id = t2.batterid
+    AND t1.pitch_number = t2.pitchno
+WHERE t1.pitchno IS NULL
