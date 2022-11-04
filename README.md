@@ -7,5 +7,5 @@ PostgreSQL database, as well as Python > 3.7 installed on your machine.
 Clone the repo and update the config file with your API key, URL and PostgreSQL credentials.
 You can then run ingest.py to populate tables to your database.
 
-The queries found in the SQL folder can then be ran against your database to perform aggregations
+The queries found in the SQL folder can then be run against your database to perform aggregations
 on the tables and identify bad data.
