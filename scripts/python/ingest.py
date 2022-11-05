@@ -4,8 +4,10 @@ from pandas import json_normalize
 import psycopg2
 from sqlalchemy import create_engine, engine
 import logging
+import configparser
 
 logger = logging.getLogger(__name__)
+config = configparser.ConfigParser()
 
 def main():
     create_tables()
