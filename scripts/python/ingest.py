@@ -36,7 +36,7 @@ class IngestData:
         }
 
         response = requests.get(BASE_URL, headers=headers, verify=False, timeout=30).json()
-        if response['error'] == 0:
+        if response.ok:
             return response
         else:
             logging.exception(f'Ingestion for {endpoint} failed with response code {response.status_code}')
