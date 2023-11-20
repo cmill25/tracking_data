@@ -42,7 +42,7 @@ class IngestData:
             logging.exception(f'Ingestion for {endpoint} failed with response code {response.status_code}')
 
     def normalize(self, response, endpoint):
-        if response['payload']:
+        if response.ok:
             return json_normalize(response['payload'])
         else:
             logging.exception(f'Response for endpoint {endpoint} contained no payload.')
